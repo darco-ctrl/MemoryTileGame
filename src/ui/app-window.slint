@@ -55,6 +55,9 @@ export component MainWindow inherits Window {
     width: 326px;
     height: 326px;
 
+    callback check_if_pair_solved();
+    in property <bool> disable_tiles;
+
     in property <[TileData]> memory_tiles: [
         { image: @image-url("../../assets/icons/at.png") },
         { image: @image-url("../../assets/icons/balance-scale.png") },
@@ -77,7 +80,10 @@ export component MainWindow inherits Window {
         solved: tile.solved;
 
         clicked => {
-            tile.image_visible = !tile.image-visible
+            if (!root.disable_tiles) {
+                tile.image_visible = true;
+                root.check_if_pair_solved();
+            }
         }
     }
 }
